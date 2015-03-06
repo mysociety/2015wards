@@ -7,14 +7,14 @@
 
 {% block content %}
 <h2>{{ postcode_display }}</h2>
-<p>You'll be in <strong>{{ new_ward.name }}</strong> ward<p>
+<p>You'll be in <strong>{{ new_ward.name }}</strong> ward.<p>
 {% if ward_has_changed %}
   <p>
   Your ward has changed
     {% if ward_has_changed_name %}
     from {{old_ward_name}} to {{new_ward_name}}.
     {% else %}
-    but the name has stayed the same, so its' boundary has probably been altered.
+    but the name has stayed the same, so its boundary has probably been altered.
     {% endif %}
   </p>
   <p>
@@ -22,7 +22,7 @@
     the Local Government Boundary Commission's website</a> to see why.
   </p>
 {% else %}
-  <p>This ward has stayed the same, as far as we know</p>
+  <p>This ward has stayed the same, as far as we know.</p>
 {% endif %}
 
 {% if new_ward.polygons.count and old_ward.polygons.count %}
