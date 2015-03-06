@@ -1,2 +1,5 @@
 conf/general.yml
-conf/http.conf
+conf/general.tmp.yml
+conf/httpd.conf
+conf/general.yml.deployed
+conf/httpd.conf.deployed
