@@ -41,7 +41,7 @@ class Postcode(DetailView):
                 context['new_ward'] = area
         if context['new_ward'] is not None:
             context['ward_has_changed'] = True
-            context['ward_has_changed_names'] = context['new_ward'].name == context['old_ward'].name
+            context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
         else:
             context['new_ward'] = context['old_ward']
 
