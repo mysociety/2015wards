@@ -11,11 +11,11 @@ TEMPLATE_DEBUG = DEBUG
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': config.get('2015WARDS_DB_USER'),
+        'NAME': config.get('2015WARDS_DB_NAME'),
         'USER': config.get('2015WARDS_DB_USER'),
-        'PASSWORD': config.get('2015WARDS_DB_USER'),
-        'HOST': config.get('2015WARDS_DB_USER'),
-        'PORT': config.get('2015WARDS_DB_USER'),
+        'PASSWORD': config.get('2015WARDS_DB_PASS'),
+        'HOST': config.get('2015WARDS_DB_HOST'),
+        'PORT': config.get('2015WARDS_DB_PORT'),
     }
 }
 

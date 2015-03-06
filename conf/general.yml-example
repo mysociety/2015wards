@@ -8,11 +8,11 @@
 #
 # Copyright (c) 2011 UK Citizens Online Democracy. All rights reserved.
 
-2015WARDS_DB_USER: 'localhost'
-2015WARDS_DB_USER: '5432'
+2015WARDS_DB_HOST: 'localhost'
+2015WARDS_DB_PORT: '5432'
 2015WARDS_DB_USER: ''
-2015WARDS_DB_USER: ''
-2015WARDS_DB_USER: ''
+2015WARDS_DB_NAME: ''
+2015WARDS_DB_PASS: ''
 
 STAGING: '1'
 
