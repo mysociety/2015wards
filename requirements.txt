@@ -1,5 +1,5 @@
 Django==1.7.5
-GDAL==1.7.3
+GDAL
 GnuPGInterface==0.3.2
 PyYAML==3.11
 Shapely==1.5.6
