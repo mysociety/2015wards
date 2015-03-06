@@ -27,3 +27,11 @@ GOOGLE_ANALYTICS_ACCOUNT: ''
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS:
   - '.example.com'
+
+# Mapit settings
+# Country is currently one of GB, NO, or KE. Optional; country specific things won't happen if not set.
+COUNTRY: 'GB'
+
+# An EPSG code for what the areas are stored as, e.g. 27700 is OSGB, 4326 for WGS84.
+# Optional, defaults to 4326.
+AREA_SRID: 27700
