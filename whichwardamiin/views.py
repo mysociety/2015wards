@@ -1,3 +1,5 @@
+from itertools import izip
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView
@@ -39,10 +41,16 @@ class Postcode(DetailView):
                 context['old_ward'] = area
             if area.type.code == '15W':
                 context['new_ward'] = area
-        if context['new_ward'] is not None:
-            context['ward_has_changed'] = True
-            context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
-        else:
-            context['new_ward'] = context['old_ward']
+        if context['old_ward'] and context['new_ward']:
+            all_polygons_same = True
+            for old_geometry, new_geometry in izip(context['old_ward'].polygons.all(), context['new_ward'].polygons.all()):
+                old_polygon = old_geometry.polygon
+                new_polygon = new_geometry.polygon
+                if not old_polygon.equals_exact(new_polygon, tolerance=0.0001):
+                    all_polygons_same = False
+                    break
+            context['ward_has_changed'] = not(all_polygons_same)
+            if context['ward_has_changed']:
+                context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
 
         return context
