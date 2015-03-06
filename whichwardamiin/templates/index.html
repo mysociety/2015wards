@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load url from future %}
+{% load bootstrap3 %}
+
+{% block title %}Which ward will I be in?{% endblock %}
+
+{% block content %}
+<p>
+    Discover which ward you'll be in after the May 2015 election, following the
+    <a href="http://www.lgbce.org.uk/">Local Government Boundary Commission
+    for England</a> review.
+<p>
+
+<form action="/" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "search" %} Search
+    </button>
+  {% endbuttons %}
+</form>
+
+{% endblock %}

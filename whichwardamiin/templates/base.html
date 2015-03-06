@@ -1,0 +1,25 @@
+{% extends 'bootstrap.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block bootstrap3_extra_head %}
+<link rel="stylesheet" href="{% static "mapit/leaflet/leaflet.css" %}" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="{% static "mapit/leaflet/leaflet.ie.css" %}" />
+<![endif]-->
+{% endblock %}
+
+{% block bootstrap3_content %}
+<div class="container">
+    <h1>{% block title %}{% endblock %}</h1>
+
+    {% bootstrap_messages %}
+
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block bootstrap3_extra_script %}
+<script src="{% static "mapit/js/reqwest.min.js" %}"></script>
+<script src="{% static "mapit/leaflet/leaflet.js" %}"></script>
+{% endblock %}

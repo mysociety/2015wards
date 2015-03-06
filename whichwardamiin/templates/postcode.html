@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load url from future %}
+{% load bootstrap3 %}
+
+{% block title %}Which ward will I be in?{% endblock %}
+
+{% block content %}
+<h2>{{ postcode_display }}</h2>
+<p>You'll be in <strong>{{ new_ward.name }}</strong> ward<p>
+{% if ward_has_changed %}
+  <p>
+  Your ward has changed
+    {% if ward_has_changed_name %}
+    from {{old_ward_name}} to {{new_ward_name}}.
+    {% else %}
+    but the name has stayed the same, so its' boundary has probably been altered.
+    {% endif %}
+  </p>
+  <p>
+    You can try <a href="http://www.lgbce.org.uk/current-reviews">looking at
+    the Local Government Boundary Commission's website</a> to see why.
+  </p>
+{% else %}
+  <p>This ward has stayed the same, as far as we know</p>
+{% endif %}
+
+{% if new_ward.polygons.count and old_ward.polygons.count %}
+<div class="row">
+  <div class="col-md-6">
+    <h2>Old</h2>
+    <div id="old_ward_map" style="height:300px"></div>
+  </div>
+  <div class="col-md-6">
+    <h2>New</h2>
+    <div id="new_ward_map" style="height:300px"></div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block bootstrap3_extra_script %}
+{{ block.super }}
+{% if new_ward.polygons.count and old_ward.polygons.count %}
+  <script>
+    var old_ward_map = new L.Map("old_ward_map");
+    var new_ward_map = new L.Map("new_ward_map");
+    var osm_old_ward = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © OpenStreetMap contributors',
+        maxZoom: 18
+    });
+    var osm_new_ward = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © OpenStreetMap contributors',
+        maxZoom: 18
+    });
+    old_ward_map.addLayer(osm_old_ward);
+    new_ward_map.addLayer(osm_new_ward);
+
+    reqwest({
+        url: "{% url 'area_polygon' 4326 old_ward.id 'geojson' %}?simplify_tolerance=0.0001",
+        type: 'json',
+        success: function(data) {
+            var area = new L.GeoJSON(data);
+            old_ward_map.addLayer(area);
+
+            var bounds = new L.LatLngBounds();
+            area._iterateLayers(function (layer) {
+                if (layer instanceof L.MultiPolygon) {
+                    layer._iterateLayers(function(layer2) {
+                        var new_bounds = layer2.getBounds();
+                        bounds.extend(new_bounds.getSouthWest());
+                        bounds.extend(new_bounds.getNorthEast());
+                    });
+                }
+                if (layer instanceof L.Polygon) {
+                    bounds = layer.getBounds();
+                }
+            }, area);
+            old_ward_map.fitBounds(bounds);
+        }
+    });
+
+    reqwest({
+        url: "{% url 'area_polygon' 4326 new_ward.id 'geojson' %}?simplify_tolerance=0.0001",
+        type: 'json',
+        success: function(data) {
+            var area = new L.GeoJSON(data);
+            new_ward_map.addLayer(area);
+
+            var bounds = new L.LatLngBounds();
+            area._iterateLayers(function (layer) {
+                if (layer instanceof L.MultiPolygon) {
+                    layer._iterateLayers(function(layer2) {
+                        var new_bounds = layer2.getBounds();
+                        bounds.extend(new_bounds.getSouthWest());
+                        bounds.extend(new_bounds.getNorthEast());
+                    });
+                }
+                if (layer instanceof L.Polygon) {
+                    bounds = layer.getBounds();
+                }
+            }, area);
+            new_ward_map.fitBounds(bounds);
+        }
+    });
+
+  </script>
+{% endif %}
+{% endblock %}
