@@ -12,14 +12,22 @@
     for England</a> review.
 <p>
 
-<form action="/" method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
+<div style="text-align: center; padding: 4em; margin-top:2em; border: 1px solid #ccc; background-color: #eee; border-radius:5px;">
+  <form action="/" method="post" class="form form-inline">
+    {% csrf_token %}
+    <div class="form-group{% if form.postcode.errors %} has-error{% endif %}">
+      <label class="control-label sr-only" for="id_postcode">Postcode</label>
+      <input class="form-control input-lg" id="id_postcode" maxlength="7"
+             name="postcode" placeholder="Postcode" required="required"
+             title="" type="text"{% if form.postcode.value %} value="{{ form.postcode.value }}"{% endif %}/>
+      {% if form.postcode.errors %}
+        <span class="help-block">{{ form.postcode.errors }}</span>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">
       {% bootstrap_icon "search" %} Search
     </button>
-  {% endbuttons %}
-</form>
+  </form>
+</div>
 
 {% endblock %}
