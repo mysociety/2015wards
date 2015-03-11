@@ -43,14 +43,27 @@ class Postcode(DetailView):
                 context['new_ward'] = area
         if context['old_ward'] and context['new_ward']:
             all_polygons_same = True
-            for old_geometry, new_geometry in izip(context['old_ward'].polygons.all(), context['new_ward'].polygons.all()):
-                old_polygon = old_geometry.polygon
-                new_polygon = new_geometry.polygon
-                if not old_polygon.equals_exact(new_polygon, tolerance=0.0001):
-                    all_polygons_same = False
-                    break
+            old_polygons = list(context['old_ward'].polygons.all())
+            new_polygons = list(context['new_ward'].polygons.all())
+            # Simpler than doing geometry math, so check first
+            if len(new_polygons) != len(old_polygons):
+                all_polygons_same = False
+            else:
+                for old_geometry, new_geometry in izip(old_polygons, new_polygons):
+                    old_polygon = old_geometry.polygon
+                    new_polygon = new_geometry.polygon
+                    area_difference = abs(old_polygon.area - new_polygon.area)
+                    # If the areas are within 10sqm of each other, they've
+                    # probably not changed in real terms
+                    if area_difference > 10:
+                        all_polygons_same = False
+                        break
             context['ward_has_changed'] = not(all_polygons_same)
             if context['ward_has_changed']:
                 context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
+            else:
+                # Blank this out if it exists, so that the template knows not
+                # to try to draw it
+                context['new_ward'] = None
 
         return context
