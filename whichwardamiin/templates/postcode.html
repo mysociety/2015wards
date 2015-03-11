@@ -10,11 +10,11 @@
 <p>You'll be in <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong> ward.<p>
 {% if ward_has_changed %}
   <p>
-  Your ward has changed
+  Your ward will change,
     {% if ward_has_changed_names %}
-    from {{ old_ward.name }} to {{ new_ward.name }}.
+        from {{ old_ward.name }} to {{ new_ward.name }}.
     {% else %}
-    but the name has stayed the same, so its boundary has probably been altered.
+        but the name will stay the same.
     {% endif %}
   </p>
   <p>
@@ -22,7 +22,7 @@
     the Local Government Boundary Commission's website</a> to see why.
   </p>
 {% else %}
-  <p>This ward has stayed the same, as far as we know.</p>
+  <p>This ward will stay the same, as far as we know.</p>
 {% endif %}
 
 {% if old_ward %}
