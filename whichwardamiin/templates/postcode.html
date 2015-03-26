@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
-{% load url from future %}
-{% load bootstrap3 %}
-
-{% block title %}Which ward will I be in?{% endblock %}
+{% block title %}{{ postcode_display }} – Which ward will I be in?{% endblock %}
 
 {% block content %}
+<header class="area_info">
 <h2>{{ postcode_display }}</h2>
 <p>You'll be in <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong> ward.<p>
 {% if ward_has_changed_area %}
@@ -14,7 +12,7 @@
         Your ward will change,
         from {{ old_ward.name }} to {{ new_ward.name }}.
     {% else %}
-        Your ward may have changed, see the map below.
+        Your ward may have changed, please see the map.
     {% endif %}
   </p>
   <p>
@@ -27,27 +25,24 @@
   <p>This ward will stay the same, as far as we know.</p>
 {% endif %}
 
+  {% if ward_has_changed_area %}
+    <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
+    <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
+  {% endif %}
+
+</header>
+
 {% if old_ward %}
 <h2>{% if ward_has_changed_area %}Ward comparison{% else %}Your ward{% endif %}</h2>
-<div class="row">
-  <div class="col-md-6">
-    <div id="map" style="height:400px"></div>
-  </div>
-  {% if ward_has_changed_area %}
-  <div class="col-md-6">
-        <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
-        <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
-  </div>
-  {% endif %}
-</div>
+<div id="map"><div id="leaflet"></div></div>
 {% endif %}
 {% endblock %}
 
-{% block bootstrap3_extra_script %}
+{% block extra_js %}
 {{ block.super }}
 {% if old_ward %}
   <script>
-    var map = new L.Map("map");
+    var map = new L.Map("leaflet");
     var layer = new L.TileLayer("http://{s}tile.stamen.com/toner-lite/{z}/{x}/{y}.png", {
         "minZoom": 0,
         "maxZoom": 20,
