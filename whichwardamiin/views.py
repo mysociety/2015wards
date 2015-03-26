@@ -34,7 +34,7 @@ class Postcode(DetailView):
         areas = list(add_codes(Area.objects.by_postcode(postcode, generation)))
         context['old_ward'] = None
         context['new_ward'] = None
-        context['ward_has_changed'] = False
+        context['ward_has_changed_area'] = False
         context['ward_has_changed_names'] = False
         for area in areas:
             if area.type.code in ('COP', 'LBW', 'LGE', 'MTW', 'UTE', 'UTW', 'DIW'):
@@ -58,12 +58,7 @@ class Postcode(DetailView):
                     if area_difference > 10:
                         all_polygons_same = False
                         break
-            context['ward_has_changed'] = not(all_polygons_same)
-            if context['ward_has_changed']:
-                context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
-            else:
-                # Blank this out if it exists, so that the template knows not
-                # to try to draw it
-                context['new_ward'] = None
+            context['ward_has_changed_area'] = not(all_polygons_same)
+            context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
 
         return context

@@ -8,30 +8,32 @@
 {% block content %}
 <h2>{{ postcode_display }}</h2>
 <p>You'll be in <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong> ward.<p>
-{% if ward_has_changed %}
+{% if ward_has_changed_area %}
   <p>
-  Your ward will change,
     {% if ward_has_changed_names %}
+        Your ward will change,
         from {{ old_ward.name }} to {{ new_ward.name }}.
     {% else %}
-        but the name will stay the same.
+        Your ward may have changed, see the map below.
     {% endif %}
   </p>
   <p>
     You can try <a href="http://www.lgbce.org.uk/current-reviews">looking at
     the Local Government Boundary Commission's website</a> to see why.
   </p>
+{% elif ward_has_changed_names %}
+  <p>Your ward has changed name from {{ old_ward.name }} to {{ new_ward.name }}.
 {% else %}
   <p>This ward will stay the same, as far as we know.</p>
 {% endif %}
 
 {% if old_ward %}
-<h2>{% if new_ward %}Ward comparison{% else %}Your ward{% endif %}</h2>
+<h2>{% if ward_has_changed_area %}Ward comparison{% else %}Your ward{% endif %}</h2>
 <div class="row">
   <div class="col-md-6">
     <div id="map" style="height:400px"></div>
   </div>
-  {% if new_ward %}
+  {% if ward_has_changed_area %}
   <div class="col-md-6">
         <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
         <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
@@ -64,10 +66,10 @@
     reqwest({
         url: "{% url 'area_polygon' old_ward.id 'geojson' %}?simplify_tolerance=0.0001",
         type: 'json',
-        success: function(data) { add_json(data, '#{% if new_ward %}D4A06A{% else %}265b6a{% endif %}'); }
+        success: function(data) { add_json(data, '#{% if ward_has_changed_area %}D4A06A{% else %}265b6a{% endif %}'); }
     });
 
-    {% if new_ward %}
+    {% if ward_has_changed_area %}
         reqwest({
             url: "{% url 'area_polygon' new_ward.id 'geojson' %}?simplify_tolerance=0.0001",
             type: 'json',
