@@ -13,7 +13,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', Index.as_view(), name='index'),
     url(r'^postcode/(?P<postcode>\w+)$', Postcode.as_view(), name='postcode'),
-    url(r'^area/(?P<srid>[0-9]+)/(?P<area_id>[0-9]+)\.(?P<format>kml|json|geojson|wkt)$', area_polygon, name='area_polygon'),
+    url(r'^area/(?P<area_id>[0-9]+)\.(?P<format>kml|json|geojson|wkt)$', area_polygon, name='area_polygon'),
     url(r'^admin/', include(admin.site.urls)),
 )
 

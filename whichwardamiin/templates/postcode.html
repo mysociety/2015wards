@@ -46,64 +46,32 @@
 {% if old_ward %}
   <script>
     var map = new L.Map("map");
-    var osm = new L.TileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-        attribution: 'Map data © OpenStreetMap contributors',
-        maxZoom: 18
+    var layer = new L.TileLayer("http://{s}tile.stamen.com/toner-lite/{z}/{x}/{y}.png", {
+        "minZoom": 0,
+        "maxZoom": 20,
+        "subdomains": "a. b. c. d.".split(" ")
     });
-    map.addLayer(osm);
+    map.attributionControl.setPrefix('');
+    map.addLayer(layer);
 
-    var old_area;
+    function add_json(data, col) {
+        var area = new L.GeoJSON(data);
+        area.setStyle({color: col, fill: false, opacity: 1});
+        map.addLayer(area);
+        map.fitBounds(area.getBounds());
+    }
 
     reqwest({
-        url: "{% url 'area_polygon' 4326 old_ward.id 'geojson' %}?simplify_tolerance=0.0001",
+        url: "{% url 'area_polygon' old_ward.id 'geojson' %}?simplify_tolerance=0.0001",
         type: 'json',
-        success: function(data) {
-            old_area = new L.GeoJSON(data)
-            old_area.setStyle({color: '#265b6a', fill: false, opacity: 1});
-            map.addLayer(old_area);
-
-            var bounds = new L.LatLngBounds();
-            old_area._iterateLayers(function (layer) {
-                if (layer instanceof L.MultiPolygon) {
-                    layer._iterateLayers(function(layer2) {
-                        var new_bounds = layer2.getBounds();
-                        bounds.extend(new_bounds.getSouthWest());
-                        bounds.extend(new_bounds.getNorthEast());
-                    });
-                }
-                if (layer instanceof L.Polygon) {
-                    bounds = layer.getBounds();
-                }
-            }, old_area);
-            map.fitBounds(bounds);
-        }
+        success: function(data) { add_json(data, '#{% if new_ward %}D4A06A{% else %}265b6a{% endif %}'); }
     });
 
     {% if new_ward %}
         reqwest({
-            url: "{% url 'area_polygon' 4326 new_ward.id 'geojson' %}?simplify_tolerance=0.0001",
+            url: "{% url 'area_polygon' new_ward.id 'geojson' %}?simplify_tolerance=0.0001",
             type: 'json',
-            success: function(data) {
-                var area = new L.GeoJSON(data);
-                area.setStyle({fill: false, color: '#265b6a', opacity: 1});
-                old_area.setStyle({color: '#D4A06A'});
-                map.addLayer(area);
-
-                var bounds = new L.LatLngBounds();
-                area._iterateLayers(function (layer) {
-                    if (layer instanceof L.MultiPolygon) {
-                        layer._iterateLayers(function(layer2) {
-                            var new_bounds = layer2.getBounds();
-                            bounds.extend(new_bounds.getSouthWest());
-                            bounds.extend(new_bounds.getNorthEast());
-                        });
-                    }
-                    if (layer instanceof L.Polygon) {
-                        bounds = layer.getBounds();
-                    }
-                }, area);
-                map.fitBounds(bounds);
-            }
+            success: function(data) { add_json(data, '#265B6A'); }
         });
     {% endif %}
 
