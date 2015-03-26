@@ -4,10 +4,11 @@
 
 {% block content %}
 <p>
-    Discover which ward you'll be in after the May 2015 election, following the
-    <a href="http://www.lgbce.org.uk/">Local Government Boundary Commission
-    for England</a> review.
-<p>
+Elections take place on 7th May 2015 in many English local authorities (plus
+there’s a general election you might have noticed). A number of these are
+having boundary changes, and this site will let you know if your ward is
+changing for the election. UK Parliamentary boundaries are not changing.
+</p>
 
 <div id="try-mapit" class="front">
   <form action="/" method="post">
@@ -21,7 +22,7 @@
       {% if form.postcode.errors %}
         <span class="help-block">{{ form.postcode.errors }}</span>
       {% endif %}
-    <input class="btn" type="submit" value="Search">
+    <input class="btn" type="submit" value="Look up">
     </div>
   </form>
 </div>
