@@ -89,10 +89,6 @@
 }
 
 @media (min-width: 55em) {
-  footer {
-    overflow: auto; // clear floats
-  }
-
   .major-credit {
     float: left;
     width: 15%;
