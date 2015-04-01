@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 8000, host: 8000
 
   # Provisioning
-  config.vm.provision "shell", path: "scripts/provision.sh", privileged: false, keep_color: true
+  config.vm.provision "shell", path: "bin/provision.sh", privileged: false, keep_color: true
 
   # Show this message after each `vagrant up`
   config.vm.post_up_message = $post_up_message
