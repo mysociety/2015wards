@@ -37,6 +37,13 @@
 .content {
   padding: 1em; }
 
+#try-mapit #id_postcode {
+  width: 8em; }
+#try-mapit .btn {
+  border-top: none;
+  background-color: #1E6D96;
+  line-height: 1.3em; }
+
 .wwaii-intro {
   padding-top: 1em; }
   .wwaii-intro p {
@@ -55,10 +62,6 @@
   #try-mapit.front #id_postcode {
     border: 1px solid #999;
     margin-left: 0; }
-  #try-mapit.front .btn {
-    border-top: none;
-    background-color: #1E6D96;
-    line-height: 1.3em; }
 
 .wwaii-features {
   margin: 2em -1em -1em -1em;
@@ -103,7 +106,8 @@
   .wwaii-features {
     margin-top: 3em; }
 
-  .wwaii-features {
+  .wwaii-features,
+  .footer {
     padding-top: 2em;
     padding-bottom: 2em; } }
 @media (min-height: 600px) {
@@ -113,7 +117,8 @@
   .wwaii-features {
     margin-top: 4em; }
 
-  .wwaii-features {
+  .wwaii-features,
+  .footer {
     padding-top: 3em;
     padding-bottom: 3em; } }
 .major-credit {
