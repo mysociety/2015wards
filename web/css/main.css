@@ -34,6 +34,88 @@
   #try-mapit form {
     padding: 0; }
 
+.content {
+  padding: 1em; }
+
+.wwaii-intro {
+  padding-top: 1em; }
+  .wwaii-intro p {
+    color: #a29daa;
+    line-height: 1.4em;
+    margin: 0; }
+  .wwaii-intro h1 {
+    color: inherit;
+    font-size: 2em;
+    line-height: 1.2em;
+    margin-top: 0.5em; }
+
+#try-mapit.front {
+  background: transparent;
+  padding: 0; }
+  #try-mapit.front #id_postcode {
+    border: 1px solid #999;
+    margin-left: 0; }
+  #try-mapit.front .btn {
+    border-top: none;
+    background-color: #1E6D96;
+    line-height: 1.3em; }
+
+.wwaii-features {
+  margin: 2em -1em -1em -1em;
+  background-color: #ebeaee;
+  padding: 1.5em 1em; }
+
+.wwaii-feature h3 {
+  margin-top: 0;
+  margin-bottom: 0.5em; }
+.wwaii-feature p:last-child {
+  margin-bottom: 0; }
+.wwaii-feature + .wwaii-feature {
+  margin-top: 1.5em; }
+
+@media (min-width: 55em) {
+  .wwaii-intro,
+  #try-mapit.front {
+    text-align: center;
+    max-width: 30em;
+    margin-left: auto;
+    margin-right: auto; }
+
+  #try-mapit.front {
+    font-size: 1.3em; }
+
+  .wwaii-features {
+    overflow: auto; }
+
+  .wwaii-feature {
+    float: left;
+    width: 30%;
+    margin-left: 15%; }
+    .wwaii-feature + .wwaii-feature {
+      margin-top: 0;
+      float: right;
+      margin-right: 15%;
+      margin-left: 0; } }
+@media (min-height: 500px) {
+  .wwaii-intro {
+    padding-top: 2em; }
+
+  .wwaii-features {
+    margin-top: 3em; }
+
+  .wwaii-features {
+    padding-top: 2em;
+    padding-bottom: 2em; } }
+@media (min-height: 600px) {
+  .wwaii-intro {
+    padding-top: 3em; }
+
+  .wwaii-features {
+    margin-top: 4em; }
+
+  .wwaii-features {
+    padding-top: 3em;
+    padding-bottom: 3em; } }
 .major-credit {
   font-size: 1.25em;
   margin: 0 0 0.75em 0;
