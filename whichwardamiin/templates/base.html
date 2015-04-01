@@ -67,7 +67,7 @@
         <label for="try-mapit-pc">Enter a postcode:</label>
         <input id="try-mapit-pc" maxlength="10"
                name="postcode" placeholder="Postcode" required
-               type="text">
+               type="text" value="{% block postcode_input_value %}{% endblock %}">
         <input class="btn" type="submit" value="Look up">
       </form>
     </div>
