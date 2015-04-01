@@ -10,7 +10,7 @@ cd `dirname $0`/..
 # NOTE: some packages are difficult to install if they are not site packages,
 # for example xapian. If using these you might want to add the
 # '--system-site-packages' argument.
-virtualenv_args=""
+virtualenv_args="--system-site-packages"
 virtualenv_dir='../virtualenv-whichwardamiin'
 virtualenv_activate="$virtualenv_dir/bin/activate"
 if [ ! -f "$virtualenv_activate" ]
@@ -31,8 +31,7 @@ pip install --requirement requirements.txt
 find . -name '*.pyc' -delete
 
 # get the database up to speed
-./manage.py syncdb
-./manage.py migrate
+./manage.py migrate --noinput
 
 # gather all the static files in one place
 ./manage.py collectstatic --noinput

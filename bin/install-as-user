@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+REPOSITORY="$1"
+UNIX_USER="$2"
+DB_NAME="mapit"
+
+# Write sensible values into the config file:
+if [ ! -f conf/general.yml ]; then
+    echo -n "Setting up default conf/general.yml file... "
+    RANDOM_STRING=$(< /dev/urandom tr -dc A-Za-z0-9 | head -c32)
+    sed -r \
+        -e "s,^( *2015WARDS_DB_USER:).*,\\1 '$UNIX_USER'," \
+        -e "s,^( *DJANGO_SECRET_KEY:).*,\\1 '$RANDOM_STRING'," \
+        "$REPOSITORY/conf/general.yml-example" > "$REPOSITORY/conf/general.yml"
+    echo "done"
+fi
+
+# Create the database if it doesn't exist:
+if ! psql -l | egrep "^ *$DB_NAME *\|" > /dev/null
+then
+    echo -n "Setting up database... "
+    createdb -T template_postgis --owner "$UNIX_USER" "$DB_NAME"
+    echo "done"
+fi
+
+find "$REPOSITORY" -name '*.pyc' -delete
