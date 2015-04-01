@@ -5,3 +5,4 @@ conf/general.yml.deployed
 conf/httpd.conf.deployed
 *.pyc
 *.sql.dump
+.vagrant
