@@ -8,7 +8,12 @@
 <header class="area_info">
 <h2>{{ postcode_display }}</h2>
 
-{% if old_ward.country.name != 'England' %}
+{% if postcode_display|slice:":2" == 'BT' %}
+<p>Northern Ireland is not having local elections this year.
+However, do find out about your general election candidates at
+<a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% elif old_ward.country.name != 'England' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.
 However, do find out about your general election candidates at <a

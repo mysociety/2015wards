@@ -37,7 +37,7 @@ class Postcode(DetailView):
         context['ward_has_changed_area'] = False
         context['ward_has_changed_names'] = False
         for area in areas:
-            if area.type.code in ('COP', 'LBW', 'LGE', 'MTW', 'UTE', 'UTW', 'DIW'):
+            if area.type.code in ('COP', 'LBW', 'MTW', 'UTE', 'UTW', 'DIW'):
                 context['old_ward'] = area
             if area.type.code == '15W':
                 context['new_ward'] = area
