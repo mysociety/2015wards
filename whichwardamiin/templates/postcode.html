@@ -54,11 +54,20 @@
     map.attributionControl.setPrefix('');
     map.addLayer(layer);
 
+    var loaded = 0;
     function add_json(data, col) {
         var area = new L.GeoJSON(data);
         area.setStyle({color: col, fill: false, opacity: 1});
         map.addLayer(area);
         map.fitBounds(area.getBounds());
+        loaded++;
+        if (loaded == 2) {
+            if (col == '#D4A06A') {
+                area.bringToBack();
+            } else {
+                area.bringToFront();
+            }
+        }
     }
 
     reqwest({
