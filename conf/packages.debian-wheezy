@@ -1,0 +1,10 @@
+postgresql
+postgresql-9.1-postgis
+libgdal1
+
+python-pip
+python-psycopg2
+python-shapely
+python-yaml
+python-memcache
+python-gdal
