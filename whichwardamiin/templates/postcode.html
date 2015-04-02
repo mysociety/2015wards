@@ -83,9 +83,10 @@ ward.</p>
     map.addLayer(layer);
 
     var loaded = 0;
-    function add_json(data, col) {
+    function add_json(data, col, width) {
+        width = width || 3;
         var area = new L.GeoJSON(data);
-        area.setStyle({color: col, fill: false, opacity: 1});
+        area.setStyle({color: col, fill: false, opacity: 1, weight: width});
         map.addLayer(area);
         map.fitBounds(area.getBounds());
         loaded++;
@@ -101,7 +102,7 @@ ward.</p>
     reqwest({
         url: "{% url 'area_polygon' old_ward.id 'geojson' %}?simplify_tolerance=0.0001",
         type: 'json',
-        success: function(data) { add_json(data, '#{% if ward_has_changed_area %}D4A06A{% else %}265b6a{% endif %}'); }
+        success: function(data) { add_json(data, {% if ward_has_changed_area %}'#D4A06A', 6{% else %}'#265b6a'{% endif %}); }
     });
 
     {% if ward_has_changed_area %}

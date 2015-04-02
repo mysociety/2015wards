@@ -62,6 +62,6 @@ class Postcode(DetailView):
                         all_polygons_same = False
                         break
             context['ward_has_changed_area'] = not(all_polygons_same)
-            context['ward_has_changed_names'] = context['new_ward'].name != context['old_ward'].name
+            context['ward_has_changed_names'] = context['new_ward'].name.lower() != context['old_ward'].name.lower()
 
         return context
