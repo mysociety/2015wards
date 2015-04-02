@@ -7,31 +7,37 @@
 {% block content %}
 <header class="area_info">
 <h2>{{ postcode_display }}</h2>
-<p>You'll be in <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong> ward.<p>
+
+<p>On election day (7<sup>th</sup> May 2015), you’ll be in
+<strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong>
+ward.</p>
+
 {% if ward_has_changed_area %}
+
+  <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
+  <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
+
   <p>
     {% if ward_has_changed_names %}
-        Your ward will change,
-        from {{ old_ward.name }} to {{ new_ward.name }}.
+      You were previously in {{ old_ward.name }}.
     {% else %}
-        Your ward may have changed, please see the map.
+      If you can’t see much or any gold, that’s probably because the ward
+      boundaries haven’t actually changed.
     {% endif %}
   </p>
-  <p>
-    You can try <a href="http://www.lgbce.org.uk/current-reviews">looking at
-    the Local Government Boundary Commission's website</a> to see full details
-    of any changes, including consultations.
-  </p>
+
+  <p>Want to more about the boundaries for this council? Visit the <a
+      href="http://www.lgbce.org.uk/current-reviews">Local Government Boundary
+      Commission's website</a> to see full details of any changes.</p>
+
 {% elif ward_has_changed_names %}
-  <p>Your ward has changed name from {{ old_ward.name }} to {{ new_ward.name }}.
+  <p>This ward has changed name from {{ old_ward.name }}.</p>
 {% else %}
-  <p>This ward will stay the same, as far as we know.</p>
+  <p>This ward will stay the same, according to the most recent official data.</p>
 {% endif %}
 
-  {% if ward_has_changed_area %}
-    <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
-    <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
-  {% endif %}
+<p><strong>New! Find out about your general election candidates at
+    <a href="https://yournextmp.com/">YourNextMP.com</a></p>
 
 </header>
 
