@@ -41,6 +41,9 @@ class Postcode(DetailView):
                 context['old_ward'] = area
             if area.type.code == '15W':
                 context['new_ward'] = area
+            # We've loaded in the councils that we don't have new boundaries for
+            if area.type.code in ('DIS', 'MTD'):
+                context['missing_data'] = area.name
         if context['old_ward'] and context['new_ward']:
             all_polygons_same = True
             old_polygons = list(context['old_ward'].polygons.all())
