@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ postcode_display }} – Which ward will I be in?{% endblock %}
+{% block title %}{{ postcode_display }} – Which ward will I be in?{% endblock %}
+
+{% block postcode_input_value %}{{ postcode_display }}{% endblock %}
 
 {% block content %}
 <header class="area_info">

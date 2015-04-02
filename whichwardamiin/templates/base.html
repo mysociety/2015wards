@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="imagetoolbar" content="false">
-    <meta name="description" content="MapIt: a web service that maps postcodes and geographical points to administrative areas.">
+    <meta name="description" content="Find out which council ward you’re in for the election on May 7th 2015, with the latest data from mySociety’s MapIt.">
 
     <title>{% block fulltitle %}{% block title %}{% endblock %} - MapIt{% endblock %}</title>
 
     <link href="{% static "mapit/css/mapit.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "mapit/leaflet/leaflet.css" %}" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="{% static "mapit/leaflet/leaflet.ie.css" %}" />
         <script src="{% static "mapit/js/html5shiv.min.js" %}"></script>
@@ -18,24 +19,6 @@
     <![endif]-->
     <script src="{% static "mapit/js/reqwest.min.js" %}"></script>
     <script src="{% static "mapit/leaflet/leaflet.js" %}"></script>
-
-<style>
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
-}
-#try-mapit.front {
-    text-align: center;
-    padding: 2em;
-    font-size: 150%;
-}
-</style>
 
     {% block extra_css %}{% endblock %}
 
@@ -57,7 +40,7 @@
 {% endif %}
 
 </head>
-<body id="mapit-mysociety-org" class="">
+<body id="mapit-mysociety-org" class="wwaii">
 
     <!-- mySociety top strip -->
     <div id="mysociety-org-bar">
@@ -73,8 +56,8 @@
     </div>
 
     <header class="header">
-        <a class="docs_link" href="http://mapit.mysociety.org/"><img src="{% static "mapit/img/home-icon.png" %}" alt="" width="16" height="14" /> MapIt Home</a>
-        <h1><a href="/">Map<em>It</em><em class="mapit-type">: Which ward will I be in?</em></a></h1>
+        <h1>Find out which ward you’re in for the election</h1>
+        <p>Powered by <a href="http://mapit.mysociety.org/">MapIt</a></p>
     </header>
 
     {% if request.path != '/' %}
@@ -84,7 +67,7 @@
         <label for="try-mapit-pc">Enter a postcode:</label>
         <input id="try-mapit-pc" maxlength="10"
                name="postcode" placeholder="Postcode" required
-               type="text">
+               type="text" value="{% block postcode_input_value %}{% endblock %}">
         <input class="btn" type="submit" value="Look up">
       </form>
     </div>
@@ -96,9 +79,15 @@
     </article>
 
     <footer class="footer" role="contentinfo">
-        <h1>Map<em>It</em><em class="mapit-type">: Which ward will I be in?</em>
-            <a href="http://www.djangoproject.com/"><img align="middle" src="{% static "mapit/img/pony.png" %}" border="0" alt="Django powered"></a>
-        </h1>
+        <h3 class="major-credit mapit-credit">
+          <small>Powered by</small>
+          <a href="http://mapit.mysociety.org/">MapIt</a>
+        </h3>
+
+        <h3 class="major-credit mysociety-credit">
+          <small>Built by</small>
+          <a href="https://mysociety.org/">mySociety</a>
+        </h3>
 
         <div class="database-credits">
             <p>Boundary data, Ordnance Survey © Crown copyright and database right 2015;
@@ -115,7 +104,6 @@
             (<a href="https://github.com/mysociety/mapit">MapIt source</a>).
             </p>
         </div>
-
     </footer>
 
     {% block extra_js %}{% endblock %}

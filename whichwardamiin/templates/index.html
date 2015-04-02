@@ -3,12 +3,11 @@
 {% block title %}Which ward will I be in?{% endblock %}
 
 {% block content %}
-<p>
-Elections take place on 7th May 2015 in many English local authorities (plus
-there’s a general election you might have noticed). A number of these are
-having boundary changes, and this site will let you know if your ward is
-changing for the election. UK Parliamentary boundaries are not changing.
-</p>
+
+<div class="wwaii-intro">
+  <p>Don’t get caught out by local boundary changes…</p>
+  <h1>Find out which council ward you’re in for the election on 7th May 2015.</h1>
+</div>
 
 <div id="try-mapit" class="front">
   <form action="/" method="post">
@@ -25,6 +24,19 @@ changing for the election. UK Parliamentary boundaries are not changing.
     <input class="btn" type="submit" value="Look up">
     </div>
   </form>
+</div>
+
+<div class="wwaii-features">
+  <div class="wwaii-feature">
+    <h3>What’s a council ward?</h3>
+    <p>At the UK local elections on 7th May, you’ll vote for councillors representing your ward.</p>
+    <p>There are over 9000 wards in the UK, and their boundaries are adjusted as local populations&nbsp;change.</p>
+  </div>
+  <div class="wwaii-feature">
+    <h3>The power of MapIt</h3>
+    <p>This tool features the latest Ordnance Survey boundary data, direct from our open&nbsp;source mapping platform, MapIt.</p>
+    <p><a href="https://mysociety.co.uk">Show other mySociety Services projects&nbsp;like&nbsp;this &raquo;</a></p>
+  </div>
 </div>
 
 {% endblock %}
