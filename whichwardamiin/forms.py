@@ -8,7 +8,7 @@ from mapit.models import Postcode
 class PostcodeForm(forms.Form):
     """Simple form class for a postcode lookup form"""
 
-    postcode = forms.CharField(required=True, max_length=7)
+    postcode = forms.CharField(required=True)
 
     def clean_postcode(self):
         postcode = self.cleaned_data['postcode']
