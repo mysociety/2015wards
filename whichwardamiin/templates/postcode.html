@@ -8,6 +8,15 @@
 <header class="area_info">
 <h2>{{ postcode_display }}</h2>
 
+{% if old_ward.country.name != 'England' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your general election candidates at <a
+href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% else %}
+
+
 <p>On election day (7<sup>th</sup> May 2015), you’ll be in
 <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong>
 ward.</p>
@@ -36,8 +45,10 @@ ward.</p>
   <p>This ward will stay the same, according to the most recent official data.</p>
 {% endif %}
 
-<p><strong>New! Find out about your general election candidates at
-    <a href="https://yournextmp.com/">YourNextMP.com</a></p>
+<p><strong>New!</strong> Find out about your general election candidates at
+    <a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% endif %}{# End of non-England if #}
 
 </header>
 
