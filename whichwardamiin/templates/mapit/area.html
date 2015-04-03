@@ -1,0 +1,58 @@
+{% extends "mapit/base.html" %}
+{% load url from compat %}
+
+{% block title %}{{ area.name }}{% endblock title %}
+
+{% block content %}
+
+    <header class="area_info">
+        <h2>{{ area.name }} <em class="area_id">ID {{ area.id }}</em></h2>
+        <ul>
+            <li>Type: {{ area.type.description }} <small>({{ area.type.code }})</small></li>
+        </ul>
+        <p>Get <a href="/area/{{ area.id }}">this data as JSON</a></p>
+    </header>
+
+{% if area.polygons.count %}
+<div id="map"><div id="leaflet"></div></div>
+<script>
+    var map = new L.Map("leaflet");
+    map.attributionControl.setPrefix('');
+    var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18
+    });
+    map.addLayer(osm);
+
+    reqwest({
+        url: "/area/{{ area.id }}.geojson?simplify_tolerance=0.0001",
+        type: 'json',
+        success: function(data) {
+            var area = new L.GeoJSON(data);
+            area.on('dblclick', function(e){
+                var z = map.getZoom() + (e.originalEvent.shiftKey ? -1 : 1);
+                map.setZoomAround(e.containerPoint, z);
+            });
+            map.addLayer(area);
+            map.fitBounds(area.getBounds());
+        }
+    });
+
+</script>
+{% endif %}
+
+    <section class="details">
+        <ul>
+            <li>
+{% if area.polygons.count %}
+                <h3>Geometry:</h3>
+                <ul>
+                    <li><a href="/area/{{ area.id }}.wkt">WKT</a></li>
+                    <li><a href="/area/{{ area.id }}.geojson">GeoJSON</a></li>
+                    <li><a href="/area/{{ area.id }}.kml">KML</a></li>
+                </ul>
+{% endif %}
+            </li>
+    </section>
+
+{% endblock %}
