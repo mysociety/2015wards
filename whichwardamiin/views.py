@@ -31,19 +31,18 @@ class Postcode(DetailView):
         postcode = self.object
         context['postcode_display'] = postcode.get_postcode_display()
         generation = Generation.objects.current()
-        areas = list(add_codes(Area.objects.by_postcode(postcode, generation)))
+        current_areas = list(add_codes(Area.objects.by_postcode(postcode, generation)))
+        new_areas = list(add_codes(Area.objects.by_postcode(postcode, Generation.objects.new())))
         context['old_ward'] = None
         context['new_ward'] = None
         context['ward_has_changed_area'] = False
         context['ward_has_changed_names'] = False
-        for area in areas:
+        for area in current_areas:
             if area.type.code in ('COP', 'LBW', 'MTW', 'UTE', 'UTW', 'DIW'):
                 context['old_ward'] = area
-            if area.type.code == '15W':
+        for area in new_areas:
+            if area.type.code == '16W':
                 context['new_ward'] = area
-            # We've loaded in the councils that we don't have new boundaries for
-            if area.type.code in ('DIS', 'MTD'):
-                context['missing_data'] = area.name
         if context['old_ward'] and context['new_ward']:
             all_polygons_same = True
             old_polygons = list(context['old_ward'].polygons.all())

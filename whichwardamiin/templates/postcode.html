@@ -9,26 +9,35 @@
 <h2>{{ postcode_display }}</h2>
 
 {% if postcode_display|slice:":2" == 'BT' %}
-<p>Northern Ireland is not having local elections this year.
-However, do find out about your general election candidates at
-<a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+<p>Northern Ireland is not having local elections this year.</p>
+However, do find out about your assembly election candidates at
+<a href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
 
-{% elif old_ward.country.name != 'England' or old_ward.type.code == 'LBW' or old_ward.type.code == 'COP' %}
+{% elif old_ward.country.name != 'England' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.
-However, do find out about your general election candidates at <a
-href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+However, do find out about your
+{% if old_ward.country.name == 'Scotland' %}Scottish Parliament
+{% elif old_ward.country.name == 'Wales' %}Welsh Assembly
+{% endif %}
+candidates at <a
+href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
 
-{% elif missing_data %}
-<p>I am afraid that the data released by Ordnance Survey in advance of the
-election did not include the new boundaries for {{ missing_data }}; you will
-have to consult your polling card or your council’s website. You can find out
-about your general election candidates at
-<a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+{% elif old_ward.type.code == 'LBW' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your London Assembly/Mayor candidates at <a
+href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
+
+{% elif old_ward.type.code == 'COP' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your PCC candidates at <a
+href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
 
 {% else %}
 
-<p>On election day (7<sup>th</sup> May 2015), you’ll be in
+<p>On election day (5<sup>th</sup> May 2016), you’ll be in
 <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong>
 ward.</p>
 
@@ -56,15 +65,15 @@ ward.</p>
   <p>This ward will stay the same, according to the most recent official data.</p>
 {% endif %}
 
-<p><strong>New!</strong> Find out about your general election candidates at
-    <a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+<p>Find out about your candidates at
+    <a href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
 
 {% endif %}{# End of non-England if #}
 
 </header>
 
 {% if old_ward %}
-<h2>{% if ward_has_changed_area %}Ward comparison{% elif missing_data %}Your old ward{% else %}Your ward{% endif %}</h2>
+<h2>{% if ward_has_changed_area %}Ward comparison{% else %}Your ward{% endif %}</h2>
 <div id="map"><div id="leaflet"></div></div>
 {% endif %}
 {% endblock %}
