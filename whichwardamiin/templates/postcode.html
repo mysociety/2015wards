@@ -17,19 +17,19 @@ However, do find out about your
 {% elif old_ward.country.name == 'Northern Ireland' %}Northern Ireland Assembly
 {% endif %}
 candidates at <a
-href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
 
 {% elif old_ward.type.code == 'LBW' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.
 However, do find out about your London Assembly/Mayor candidates at <a
-href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
 
 {% elif old_ward.type.code == 'COP' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.
 However, do find out about your PCC candidates at <a
-href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
 
 {% else %}
 
@@ -62,7 +62,7 @@ ward.</p>
 {% endif %}
 
 <p>Find out about your candidates at
-    <a href="https://whocanivotefor.co.uk/">Who Can I Vote For?</a>.</p>
+    <a href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
 
 {% endif %}{# End of non-England if #}
 
