@@ -33,7 +33,7 @@ href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">W
 
 {% else %}
 
-<p>On election day (5<sup>th</sup> May 2016), you’ll be in
+<p>On election day ({{ ELECTION_DATE|safe }} {{ ELECTION_YEAR }}), you’ll be in
 <strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong>
 ward.</p>
 

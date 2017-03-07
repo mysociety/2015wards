@@ -28,6 +28,9 @@ GOOGLE_ANALYTICS_ACCOUNT: ''
 ALLOWED_HOSTS:
   - '.example.com'
 
+ELECTION_YEAR: 'NNNN'
+ELECTION_DATE: 'N<sup>th</sup> May'
+
 # Mapit settings
 # Country is currently one of GB, NO, or KE. Optional; country specific things won't happen if not set.
 COUNTRY: 'GB'

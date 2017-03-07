@@ -24,6 +24,9 @@ SECRET_KEY = config.get('DJANGO_SECRET_KEY')
 GOOGLE_ANALYTICS_ACCOUNT = config.get('GOOGLE_ANALYTICS_ACCOUNT')
 ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', [])
 
+ELECTION_YEAR = config.get('ELECTION_YEAR')
+ELECTION_DATE = config.get('ELECTION_DATE')
+
 # An EPSG code for what the areas are stored as, e.g. 27700 is OSGB, 4326 for
 # WGS84. Optional, defaults to 4326.
 MAPIT_AREA_SRID = int(config.get('AREA_SRID', 4326))
