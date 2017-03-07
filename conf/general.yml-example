@@ -30,6 +30,10 @@ ALLOWED_HOSTS:
 
 ELECTION_YEAR: 'NNNN'
 ELECTION_DATE: 'N<sup>th</sup> May'
+# DIW or CED depending on year
+COUNTY_TYPE: ''
+GENERATION_CURRENT: 0
+GENERATION_NEW: 0
 
 # Mapit settings
 # Country is currently one of GB, NO, or KE. Optional; country specific things won't happen if not set.

@@ -1,5 +1,6 @@
 from itertools import izip
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView
@@ -30,15 +31,16 @@ class Postcode(DetailView):
         context = super(Postcode, self).get_context_data(**kwargs)
         postcode = self.object
         context['postcode_display'] = postcode.get_postcode_display()
-        generation = Generation.objects.current()
+        generation = Generation.objects.get(id=settings.GENERATION_CURRENT)
+        generation_new = Generation.objects.get(id=settings.GENERATION_NEW)
         current_areas = list(add_codes(Area.objects.by_postcode(postcode, generation)))
-        new_areas = list(add_codes(Area.objects.by_postcode(postcode, Generation.objects.new())))
+        new_areas = list(add_codes(Area.objects.by_postcode(postcode, generation_new)))
         context['old_ward'] = None
         context['new_ward'] = None
         context['ward_has_changed_area'] = False
         context['ward_has_changed_names'] = False
         for area in current_areas:
-            if area.type.code in ('LGE', 'COP', 'LBW', 'MTW', 'UTE', 'UTW', 'DIW'):
+            if area.type.code in ('LGE', 'COP', 'LBW', 'MTW', 'UTE', 'UTW', settings.COUNTY_TYPE):
                 context['old_ward'] = area
         for area in new_areas:
             if area.type.code == '16W':

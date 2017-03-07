@@ -1,0 +1,22 @@
+{% if postcode_display|slice:":2" == 'BT' %}
+<p>Northern Ireland is not having local elections this year.
+However, do find out about your general election candidates at
+<a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% elif old_ward.country.name != 'England' or old_ward.type.code == 'LBW' or old_ward.type.code == 'COP' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your general election candidates at <a
+href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% elif missing_data %}
+<p>I am afraid that the data released by Ordnance Survey in advance of the
+election did not include the new boundaries for {{ missing_data }}; you will
+have to consult your polling card or your council’s website. You can find out
+about your general election candidates at
+<a href="https://yournextmp.com/">YourNextMP.com</a>.</p>
+
+{% else %}
+{% include 'postcode-default.html' %}
+
+{% endif %}

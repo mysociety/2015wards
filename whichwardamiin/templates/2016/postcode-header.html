@@ -1,0 +1,27 @@
+{% if old_ward.country.name != 'England' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your
+{% if old_ward.country.name == 'Scotland' %}Scottish Parliament
+{% elif old_ward.country.name == 'Wales' %}Welsh Assembly
+{% elif old_ward.country.name == 'Northern Ireland' %}Northern Ireland Assembly
+{% endif %}
+candidates at <a
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
+
+{% elif old_ward.type.code == 'LBW' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your London Assembly/Mayor candidates at <a
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
+
+{% elif old_ward.type.code == 'COP' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.
+However, do find out about your PCC candidates at <a
+href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>
+
+{% else %}
+{% include 'postcode-default.html' %}
+
+{% endif %}

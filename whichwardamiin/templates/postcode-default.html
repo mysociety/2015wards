@@ -1,0 +1,30 @@
+<p>On election day ({{ ELECTION_DATE|safe }} {{ ELECTION_YEAR }}), you’ll be in
+<strong>{% if new_ward %}{{ new_ward.name }}{% else %}{{ old_ward.name }}{% endif %}</strong>
+ward.</p>
+
+{% if ward_has_changed_area %}
+
+  <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#D4A06A;"></span> Old ward</p>
+  <p><span style="display:inline-block; width:3em; height:0.75em; background-color:#265b6a;"></span> New ward</p>
+
+  <p>
+    {% if ward_has_changed_names %}
+      You were previously in {{ old_ward.name }}.
+    {% else %}
+      If you can’t see much or any gold, that’s probably because the ward
+      boundaries haven’t actually changed.
+    {% endif %}
+  </p>
+
+  <p>Want to more about the boundaries for this council? Visit the <a
+      href="http://www.lgbce.org.uk/current-reviews">Local Government Boundary
+      Commission's website</a> to see full details of any changes.</p>
+
+{% elif ward_has_changed_names %}
+  <p>This ward has changed name from {{ old_ward.name }}.</p>
+{% else %}
+  <p>This ward will stay the same, according to the most recent official data.</p>
+{% endif %}
+
+<p>Find out about your candidates at
+    <a href="https://whocanivotefor.co.uk/elections/{{ postcode_display|urlencode }}">Who Can I Vote For?</a>.</p>

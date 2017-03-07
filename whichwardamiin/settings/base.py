@@ -167,3 +167,7 @@ CSRF_COOKIE_HTTPONLY = True
 
 # Now get the mySociety configuration
 from .mysociety import *
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_DIR, 'templates', str(ELECTION_YEAR)),
+) + TEMPLATE_DIRS

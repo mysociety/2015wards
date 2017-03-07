@@ -1,0 +1,16 @@
+{% if old_ward.type.code == 'LGE' or old_ward.type.code == 'LBW' or old_ward.type.code == 'UTW' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.</p>
+
+{% elif old_ward.type.code == 'MTW' and old_ward.parent_area.name != 'Doncaster Borough Council' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.</p>
+
+{% elif old_ward.type.code == 'UTE' and old_ward.parent_area.name != 'Wiltshire Council' and old_ward.parent_area.name != 'Cornwall Council' and old_ward.parent_area.name != 'Durham County Council' and old_ward.parent_area.name != 'Isle of Wight Council' and old_ward.parent_area.name != 'Northumberland County Council' and old_ward.parent_area.name != 'Shropshire Council' %}
+<p>You are in <strong>{{ old_ward.name }}</strong> ward;
+you are not having local elections this year.</p>
+
+{% else %}
+{% include 'postcode-default.html' %}
+
+{% endif %}
