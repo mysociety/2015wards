@@ -1,79 +1,20 @@
-// Header and subheader
+// See bin/mapit_make_css
+@import "variables";
+@import "core";
 
-.header {
-  background-color: mix(#000, #bfb9c8, 15%);
-  background-size: cover;
-  background-position: 50% 87%;
-  color: #fff;
-  padding: 1em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border-bottom-width: 0; // hide bottom border on narrow screens
+@import "header";
 
-  @media (min-width: 55em) {
-    padding: 1.5em 1.5em 1.5em 40%;
-    border-radius: 3px 3px 0 0;
-    border-bottom-width: 0.5em;
-  }
-
-  h1, p {
-    color: inherit;
-    margin: 0;
-    padding: 0;
-    line-height: 1.2em;
-  }
-
-  h1 {
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 0.2em;
-  }
-
-  a {
-    color: inherit;
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
-  }
+.homepage-section {
+    padding: 1em 0;
 }
-
-#try-mapit {
-  padding: 1em;
-
-  @media (min-width: 55em) {
-    padding: 1em 1.5em 1.5em 40%;
-    border-radius: 3px 3px 0 0;
-  }
-
-  form {
-    padding: 0;
-  }
-}
-
-.content {
-  padding: 1em;
-}
-
-#try-mapit {
-  #id_postcode {
-    width: 8em;
-  }
-
-  .btn {
-    border-top: none;
-    background-color: #1E6D96; // blue to match globe in header
-    line-height: 1.3em;
-  }
-}
-
-
 
 // Home page
 
-.wwaii-intro {
-  padding-top: 1em;
+#id_postcode {
+    width: 8em;
+}
 
+.wwaii-intro {
   p {
     color: mix(#000, #bfb9c8, 15%);
     line-height: 1.4em;
@@ -88,19 +29,8 @@
   }
 }
 
-#try-mapit.front {
-  background: transparent;
-  padding: 0;
-
-  #id_postcode {
-    border: 1px solid #999;
-    margin-left: 0;
-  }
-}
-
 .wwaii-features {
   margin: 2em -1em -1em -1em;
-  background-color: mix(#fff, #bfb9c8, 70%);
   padding: 1.5em 1em;
 }
 
@@ -121,14 +51,14 @@
 
 @media (min-width: 55em) {
   .wwaii-intro,
-  #try-mapit.front {
+  #try-mapit {
     text-align: center;
     max-width: 30em;
     margin-left: auto;
     margin-right: auto;
   }
 
-  #try-mapit.front {
+  #try-mapit {
     font-size: 1.3em;
   }
 
@@ -152,15 +82,11 @@
 
 @media (min-height: 500px) {
   .wwaii-intro {
-    padding-top: 2em;
+    padding-top: 1em;
   }
 
   .wwaii-features {
     margin-top: 3em;
-  }
-
-  .wwaii-features,
-  .footer {
     padding-top: 2em;
     padding-bottom: 2em;
   }
@@ -168,94 +94,15 @@
 
 @media (min-height: 600px) {
   .wwaii-intro {
-    padding-top: 3em;
+    padding-top: 2em;
   }
 
   .wwaii-features {
     margin-top: 4em;
-  }
-
-  .wwaii-features,
-  .footer {
     padding-top: 3em;
     padding-bottom: 3em;
   }
 }
-
-
-
-// Footer
-
-.major-credit {
-  font-size: 1.25em;
-  margin: 0 0 0.75em 0;
-  color: inherit;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-}
-
-.mapit-credit {
-  a {
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
-}
-
-.mysociety-credit {
-  a {
-    display: inline-block;
-    background: transparent url(../img/mysociety-white.png) 0 0 no-repeat;
-    background-size: 4.5em auto;
-    width: 4.5em;
-    height: 4.5em * (100/486);
-    text-indent: -9000px;
-    vertical-align: -0.25em;
-    margin-left: 0.1em;
-  }
-}
-
-@media (min-width: 55em) {
-  .major-credit {
-    float: left;
-    width: 15%;
-    margin-left: 2%;
-
-    a {
-      display: block;
-    }
-  }
-
-  .mapit-credit {
-    a {
-      font-size: 1.3em;
-    }
-  }
-
-  .mysociety-credit {
-    a {
-      background-size: 6em auto;
-      width: 6em;
-      height: 6em * (100/486);
-      margin-left: 0;
-      margin-top: 0.2em;
-    }
-  }
-
-  footer .database-credits {
-    float: right;
-    width: 60% !important;
-
-    p {
-      margin: 0;
-    }
-  }
-}
-
 
 // Random bits
 

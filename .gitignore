@@ -6,3 +6,6 @@ conf/httpd.conf.deployed
 *.pyc
 *.sql.dump
 .vagrant
+
+/web/css
+/web/sass/core.scss

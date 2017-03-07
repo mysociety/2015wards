@@ -30,6 +30,7 @@ pip install --requirement requirements.txt
 # make sure that there is no old code (the .py files may have been git deleted)
 find . -name '*.pyc' -delete
 
+bin/mapit_make_css
+
 # gather all the static files in one place
 ./manage.py collectstatic --noinput
-

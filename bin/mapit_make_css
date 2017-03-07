@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+#
+# mapit_make_css:
+# Generate CSS files from SCSS files.
+
+import os
+import subprocess
+import mapit
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Add a shim file that our custom mapit.scss can import, to get to the mapit core styles
+with open(os.path.join(parent_dir, 'web', 'sass', 'core.scss'), 'w') as core_file:
+    core_file.write("""@import "{}";""".format(
+        os.path.join(os.path.dirname(mapit.__file__), 'static', 'mapit', 'sass', 'mapit.scss')
+    ))
+
+subprocess.check_call([
+    "mkdir", "-p", "%s/web/css" % parent_dir
+])
+subprocess.check_call([
+    "sassc", "--sourcemap",
+    "--style", "compressed",
+    "%s/web/sass/main.scss" % parent_dir,
+    "%s/web/css/main.css" % parent_dir
+])

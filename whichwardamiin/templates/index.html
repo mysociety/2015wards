@@ -9,7 +9,7 @@
   <h1>Find out which council ward you’re in for the election on {{ ELECTION_DATE|safe }} {{ ELECTION_YEAR }}.</h1>
 </div>
 
-<div id="try-mapit" class="front">
+<div id="try-mapit">
   <form action="/" method="post">
     {% csrf_token %}
     <div class="form-group{% if form.postcode.errors %} has-error{% endif %}">
@@ -21,12 +21,12 @@
       {% if form.postcode.errors %}
         <span class="help-block">{{ form.postcode.errors }}</span>
       {% endif %}
-    <input class="btn" type="submit" value="Look up">
+    <input class="btn btn--primary" type="submit" value="Look up">
     </div>
   </form>
 </div>
 
-<div class="wwaii-features">
+<div class="homepage-section--contrasting wwaii-features">
   <div class="wwaii-feature">
     <h3>What’s a council ward?</h3>
     <p>At the UK local elections on {{ ELECTION_DATE|safe }}, you’ll vote for councillors representing your ward.</p>
