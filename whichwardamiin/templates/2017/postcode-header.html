@@ -1,16 +1,37 @@
+{% with council=old_ward.parent_area.name country=old_ward.country.name %}
 {% if old_ward.type.code == 'LGE' or old_ward.type.code == 'LBW' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.</p>
 
-{% elif old_ward.type.code == 'UTW' and old_ward.country.name == 'England' %}
-<p>You are in <strong>{{ old_ward.name }}</strong> ward;
-you are not having local elections this year.</p>
+{% elif old_ward.type.code == 'UTW' and country == 'England' %}
 
-{% elif old_ward.type.code == 'MTW' and old_ward.parent_area.name != 'Doncaster Borough Council' %}
-<p>You are in <strong>{{ old_ward.name }}</strong> ward;
-you are not having local elections this year.</p>
+    {% if council == 'Peterborough City Council' %}
+        {% include "mayor.html" with mayor="Cambridgeshire and Peterborough" %}
+    {% elif council == 'Halton Borough Council' %}
+        {% include "mayor.html" with mayor="Liverpool City Region" %}
+    {% elif council == 'Bristol City Council' or council == 'Bath and North East Somerset Council' or council == 'South Gloucestershire Council' %}
+        {% include "mayor.html" with mayor="West of England" %}
+    {% elif council == 'Darlington Borough Council' or council == 'Hartlepool Borough Council' or council == 'Middlesbrough Council' or council == 'Redcar and Cleveland Borough Council' or council == 'Stockton-on-Tees Borough Council' %}
+        {% include "mayor.html" with mayor="Tees Valley" %}
+    {% else %}
+        <p>You are in <strong>{{ old_ward.name }}</strong> ward;
+        you are not having local elections this year.</p>
+    {% endif %}
 
-{% elif old_ward.type.code == 'UTE' and old_ward.country.name == 'England' and old_ward.parent_area.name != 'Wiltshire Council' and old_ward.parent_area.name != 'Cornwall Council' and old_ward.parent_area.name != 'Durham County Council' and old_ward.parent_area.name != 'Isle of Wight Council' and old_ward.parent_area.name != 'Northumberland County Council' and old_ward.parent_area.name != 'Shropshire Council' %}
+{% elif old_ward.type.code == 'MTW' %}
+
+    {% if council == 'Knowsley Borough Council' or council == 'Liverpool City Council' or council == 'St Helens Borough Council' or council == 'Sefton Borough Council' or council == 'Wirral' %}
+        {% include "mayor.html" with mayor="Liverpool City Region" %}
+    {% elif council == 'Birmingham City Council' or council == 'Coventry City Council' or council == 'Dudley Borough Council' or council == 'Sandwell Borough Council' or council == 'Solihull Borough Council' or council == 'Walsall Borough Council' or council == 'Wolverhampton City Council' %}
+        {% include "mayor.html" with mayor="West Midlands" %}
+    {% elif council == 'Bolton Borough Council' or council == 'Bury Borough Council' or council == 'Manchester City Council' or council == 'Oldham Borough Council' or council == 'Rochdale Borough Council' or council == 'Salford City Council' or council == 'Stockport Borough Council' or council == 'Tameside Borough Council' or council == 'Trafford Borough Council' or council == 'Wigan Borough Council' %}
+        {% include "mayor.html" with mayor="Greater Manchester" %}
+    {% elif council != 'Doncaster Borough Council' %}
+        <p>You are in <strong>{{ old_ward.name }}</strong> ward;
+        you are not having local elections this year.</p>
+    {% endif %}
+
+{% elif old_ward.type.code == 'UTE' and country == 'England' and council != 'Wiltshire Council' and council != 'Cornwall Council' and council != 'Durham County Council' and council != 'Isle of Wight Council' and council != 'Northumberland County Council' and council != 'Shropshire Council' %}
 <p>You are in <strong>{{ old_ward.name }}</strong> ward;
 you are not having local elections this year.</p>
 
@@ -18,3 +39,4 @@ you are not having local elections this year.</p>
 {% include 'postcode-default.html' %}
 
 {% endif %}
+{% endwith %}
